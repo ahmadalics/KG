@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Matching Game</title>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#game-container {
+    margin-top: 20px;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+    <h2 id="colorToMatch">Blue</h2>
+    <div id="game-container">
+        <!-- Colored squares will be added here -->
+    </div>
+    <script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+    const colors = ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'];
+    const colorToMatch = document.getElementById('colorToMatch');
+    const gameContainer = document.getElementById('game-container');
+
+    function generateSquares(numberOfSquares) {
+        for (let i = 0; i < numberOfSquares; i++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            square.addEventListener('click', function() {
+                if (this.style.backgroundColor === colorToMatch.textContent.toLowerCase()) {
+                    alert('Correct!');
+                    resetGame();
+                } else {
+                    alert('Try Again');
+                }
+            });
+            gameContainer.appendChild(square);
+        }
+    }
+
+    function resetGame() {
+        gameContainer.innerHTML = '';
+        colorToMatch.textContent = colors[Math.floor(Math.random() * colors.length)];
+        generateSquares(6);
+    }
+
+    resetGame();
+});
+</script>
+</body>
+</html>
